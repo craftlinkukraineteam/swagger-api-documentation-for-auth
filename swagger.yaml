@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: User Authentication API
   description: Swagger API for User Authentication API
-  version: 1.0.0
+  version: 1.1.0
 servers:
   - url: http://localhost:3000
     description: Local development server
@@ -16,10 +16,18 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - username
+                - email
+                - password
               properties:
                 username:
                   type: string
                   example: craftlinkukraineteam_user
+                email:
+                  type: string
+                  format: email
+                  example: nazar@example.com
                 password:
                   type: string
                   example: StrongPassword123
@@ -35,6 +43,8 @@ paths:
                     type: integer
                   username:
                     type: string
+                  email:
+                    type: string
   /auth/login:
     post:
       summary: User Authorization
@@ -44,10 +54,14 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - email
+                - password
               properties:
-                username:
+                email:
                   type: string
-                  example: craftlinkukraineteam_user
+                  format: email
+                  example: nazar@example.com
                 password:
                   type: string
                   example: StrongPassword123
@@ -78,6 +92,8 @@ paths:
                   id:
                     type: integer
                   username:
+                    type: string
+                  email:
                     type: string
         401:
           description: Unauthorized access
