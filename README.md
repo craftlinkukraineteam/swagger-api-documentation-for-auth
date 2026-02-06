@@ -21,7 +21,7 @@ POST   /auth/register
 POST   /auth/login
 POST   /auth/logout
 POST   /auth/refresh
-GET      /auth/profile
+GET    /auth/profile
 POST   /auth/forgot-password
 POST   /auth/reset-password
 POST   /auth/verify-email
