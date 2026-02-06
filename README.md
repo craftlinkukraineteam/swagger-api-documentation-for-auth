@@ -53,6 +53,7 @@ npm install
 ```
 
 ### Встановлення залежностей
+Запуск у IDE JetBrains WebStorm через консоль наступною командою:
 ```properties
 npm install
 ```
