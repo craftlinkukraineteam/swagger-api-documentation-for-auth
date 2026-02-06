@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: User Authentication API
-  description: Swagger API for User Authentication API
+  title: Authorization and Authentication API
+  description: Swagger API for Authorization and Authentication API
   version: 1.1.0
 servers:
   - url: http://localhost:3000
@@ -97,6 +97,109 @@ paths:
                     type: string
         401:
           description: Unauthorized access
+  /auth/logout:
+    post:
+      summary: User's Log Out
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      responses:
+        200:
+          description: You have successfully logged into the system
+  /auth/refresh:
+    post:
+      summary: Refresh JWT-token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+      responses:
+        200:
+          description: New JWT token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /auth/forgot-password:
+    post:
+      summary: You received a password reset link
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        200:
+          description:
+            Reset link was sent to user's email address
+  /auth/reset-password:
+    post:
+      summary: Reset user's password process
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                newPassword:
+                  type: string
+      responses:
+        200:
+          description: E-mail verified has been successfully completed!
+  /auth/verify-email:
+    post:
+      tags:
+        - Authentication
+      summary: Verify User's E-mail Address
+      description: Verification of user's email address using verification token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  example: ylYjgUgoTlGHTvJ7LgDgTbE8nGF3GjbRTGM6fg...
+      responses:
+        200:
+          description: E-mail Verified Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: E-mail Verified Successfully!
+        400:
+          description: Invalid or Expired Token
+        404:
+          description: User was not found
 components:
   securitySchemes:
     bearerAuth:
